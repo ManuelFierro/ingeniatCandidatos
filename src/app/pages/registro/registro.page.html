@@ -1,3 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Formulario de registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <p-toast key="tst"></p-toast>
 
 <ion-content>
@@ -25,7 +34,7 @@
                     <div class="field col-12 sm:col-6">
                       <h6>Fecha de nacimiento </h6>
                       <p-calendar [readonlyInput]="true" dateFormat="mm-dd-yy" (onSelect)="getDate($event)"
-                        formControlName="date" [required]="true" >
+                        formControlName="date" [required]="true">
                       </p-calendar>
                     </div>
                     <div class="field col-12 sm:col-6">

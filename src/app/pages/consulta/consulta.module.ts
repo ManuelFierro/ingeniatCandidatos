@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ConsultaPageRoutingModule } from './consulta-routing.module';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 import { ConsultaPage } from './consulta.page';
 
 @NgModule({
   imports: [
     CommonModule,
+    CheckboxModule,
     FormsModule,
+    MultiSelectModule,
     IonicModule,
     ToastModule,
     TableModule,

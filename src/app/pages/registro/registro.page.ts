@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { RegistroService } from './../../services/registro.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,10 +21,12 @@ export class RegistroPage implements OnInit {
 
   constructor(
     private msgService: MessageService,
-    private registroServ: RegistroService
+    private registroServ: RegistroService,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    //Se crea el formGroup para tener todos los campos del formulario, use dos passwords que deben ser iguales.
     this.registro = new FormGroup({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
@@ -37,12 +40,16 @@ export class RegistroPage implements OnInit {
     });
   }
 
+  //Transforma el objeto date que se obtiene del componente de calendario y formatea
   getDate(e) {
     console.log('entro al date')
     this.date = new Date(e).toISOString().substring(0, 10);
   }
 
   submitRegistro() {
+    //Se verifica si el formulario "registro" es valido/tiene respuestas, si no es valido mandara un toast
+    //Si es valido se setea la fecha y se mandan los datos al service de registro donde se usa la api para registros
+    //Si todo va bien mandara un toast y redireccionara al login
     if (!this.registro.valid) {
       this.showToast("error", "Error", "Verifique los campos del registro");
     } else if (this.password == this.password2) {
@@ -52,6 +59,9 @@ export class RegistroPage implements OnInit {
         console.log("result del registro ", result)
         if (result['response']) {
           this.showToast("success", "Exito", result['message']);
+          setTimeout(() => {
+            this.navCtrl.navigateForward('login')
+          }, 500);
         } else {
           this.showToast("error", "Error", result['message']);
         }

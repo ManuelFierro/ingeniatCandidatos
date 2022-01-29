@@ -1,3 +1,4 @@
+import { ConsultaService } from './../../services/consulta.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
   constructor(
     private msgService: MessageService,
     private authServ: AuthService,
-    private navCtl: NavController
+    private navCtl: NavController,
+    private consultaServ: ConsultaService
   ) { }
 
   ngOnInit() {
@@ -27,17 +29,25 @@ export class LoginPage implements OnInit {
   }
 
   login() {
+    //Se verifica que no esten vacios los campos si lo estan mandara un toast
+    //Si no van vacios ejecutara el metodo auth del servicio de autenticacion
+    //La respuesta regresa un token que es el que se usa para poblar la lista
+    //Se consume la api que tiene los datos para llenar la tabla de los vehiculos
+    //Si algo sale mal se mandaran toast con su mensaje
     if (this.email == '' || this.password == '') {
       this.showToast('error', 'Error', 'Favor de ingresar usuario y contraseña')
     } else {
       console.log('Entro al auth')
       this.authServ.auth(this.email, this.password).then((result) => {
         console.log('Result al auth ', result)
-        if (result['response'] == false) {
-          this.showToast('error', 'Error', result['message'])
-        } else {
+        if (result['response'] == true) {
           this.showToast('success', 'Exito', 'Se logeo con exito')
-          this.navCtl.navigateForward('consulta')
+          this.consultaServ.consulta().then((resultC) => {
+            console.log("resultC ", resultC)
+            this.navCtl.navigateForward('consulta')
+          })
+        } else {
+          this.showToast('error', 'Error', result['message'])
         }
       }).catch((err) => {
         this.showToast('error', 'Error', 'Hubo un problema al querer entrar')
@@ -50,7 +60,5 @@ export class LoginPage implements OnInit {
   toRegistro() {
     this.navCtl.navigateForward('registro')
   }
-  toConsulta() {
-    this.navCtl.navigateForward('consulta')
-  }
+
 }

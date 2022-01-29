@@ -1,11 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>consulta</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de vehiculos</ion-title>
   </ion-toolbar>
 </ion-header>
+<p-toast key="tst" position="top-center" [preventOpenDuplicates]="true"></p-toast>
 
 <ion-content>
-  <p-toast key="tst" position="top-center" [preventOpenDuplicates]="true"></p-toast>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Actualizar"
       refreshingSpinner="circles" refreshingText="Actualizando lista de vehiculos">
@@ -13,11 +16,13 @@
   </ion-refresher>
   <ion-card>
     <div class="card">
-      <p-table #dtc [value]="listaVehiculos" [globalFilterFields]="['nombreMarca','nombreMarca','idModelo']"
-        [filterDelay]="0" [paginator]="true" [rows]="10" selectionMode="single" dataKey="id"
-        styleClass="p-datatable-customers ">
+      <p-table #dtc responsiveLayout="scroll" [value]="listaVehiculos" [globalFilterFields]="['nombreModelo','nombreMarca']" [filterDelay]="0"
+        [paginator]="true" [rows]="10" selectionMode="single" dataKey="id" styleClass="p-datatable-sm">
         <ng-template pTemplate="caption">
           <div class="table-header">
+            <p-multiSelect [options]="listaMarcas" [(ngModel)]="selectedMarca" optionLabel="nombre"
+              (onChange)="filtrarMarca()">
+            </p-multiSelect>
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
               <input class="p-inputtext p-component p-filled" type="text"
@@ -28,22 +33,16 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="idModelo">
-              <div class="flex justify-content-between align-items-center">
-                Id
-                <p-sortIcon field="idModelo"></p-sortIcon>
-              </div>
-            </th>
-            <th pSortableColumn="modelo">
+            <th pSortableColumn="nombreModelo">
               <div class="flex justify-content-between align-items-center">
                 Modelo
-                <p-sortIcon field="modelo"></p-sortIcon>
+                <p-sortIcon field="nombreModelo"></p-sortIcon>
               </div>
             </th>
-            <th pSortableColumn="marca">
+            <th pSortableColumn="nombreMarca">
               <div class="flex justify-content-between align-items-center">
                 Marca
-                <p-sortIcon field="marca"></p-sortIcon>
+                <p-sortIcon field="nombreMarca"></p-sortIcon>
               </div>
             </th>
 
@@ -51,10 +50,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-vehi>
           <tr>
-            <td>
-              <span class="p-column-title">Id</span>
-              <span class="image-text">{{vehi.idModelo}}</span>
-            </td>
             <td>
               <span class="p-column-title">Modelo</span>
               <span class="image-text">{{vehi.nombreModelo}}</span>

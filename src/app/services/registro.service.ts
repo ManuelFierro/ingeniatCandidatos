@@ -11,14 +11,18 @@ export class RegistroService {
 
   constructor(public http: HttpClient) { }
 
+  //Manda los datos de registro que se llenaron en el formulario de registro
   registro(data) {
     return new Promise((resolve, reject) => {
       console.log(data)
-      this.url = 'https://apifrontend.ingeniat.com/proyectoCandidatos/registro';
+      //Se arma la url con todos los parametros necesarios
+      this.url = 'http://apifrontend.ingeniat.com/proyectoCandidatos/registro?' +
+        'firstname=' + data.firstname + '&' + 'lastname=' + data.lastname + '&' +
+        'birthdate=' + data.date + '&' + 'email=' + data.email + '&' +
+        'password=' + data.password
 
-      //Hace la peticion post mandando la url, la captura en b64 y en el header la auth
-      //devuelve 210 si todo esta bien y 406 si la instancia esta inactiva
-      this.http.post(this.url, data).pipe(timeout(30000)).subscribe(resp => {
+      this.http.post(this.url, '').pipe(timeout(30000)).subscribe(resp => {
+        //Devuelve varios errores como email registrado pero esos errores se manejan en el ts de registros
         this.registroResp = resp;
         resolve(this.registroResp);
       }, error => {
