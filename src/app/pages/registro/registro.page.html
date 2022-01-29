@@ -1,7 +1,7 @@
 <p-toast key="tst"></p-toast>
 
 <ion-content>
-  <div style="height: 100%; display: flex; align-items: stretch; justify-content: center;">
+  <div style="height: 90%; display: flex; align-items: stretch; justify-content: center;">
 
     <ion-card>
       <form [formGroup]="registro" (ngSubmit)="submitRegistro()" novalidate>
@@ -14,32 +14,36 @@
                   <div class="formgrid grid">
                     <div class="field col-12 sm:col-6">
                       <label for="firstname">Nombre </label>
-                      <input id="firstname" type="text" formControlName="firstname" pInputText
-                        class="inputfield w-full">
+                      <input id="firstname" type="text" formControlName="firstname" pInputText class="inputfield w-full"
+                        [required]="true">
                     </div>
                     <div class="field col-12 sm:col-6">
                       <label for="lastname">Apellido </label>
-                      <input id="lastname" type="text" formControlName="lastname" pInputText class="inputfield w-full">
+                      <input id="lastname" type="text" formControlName="lastname" pInputText class="inputfield w-full"
+                        [required]="true">
                     </div>
                     <div class="field col-12 sm:col-6">
                       <h6>Fecha de nacimiento </h6>
-                      <p-calendar dateFormat="mm-dd-yy" (onSelect)="getDate($event)" formControlName="date">
+                      <p-calendar [readonlyInput]="true" dateFormat="mm-dd-yy" (onSelect)="getDate($event)"
+                        formControlName="date" [required]="true" >
                       </p-calendar>
                     </div>
-                    <div class="field col-12 sm:col-12">
+                    <div class="field col-12 sm:col-6">
                       <label for="email">Email </label>
                       <input id="email" type="mail" formControlName="email" pInputText [(ngModel)]="email"
-                        class="inputfield w-full">
+                        class="inputfield w-full" [required]="true">
                     </div>
 
-                    <div class="field col-12 sm:col-3">
+                    <div class="field col-12 sm:col-4">
                       <h6>Contraseña </h6>
-                      <p-password [feedback]="false" formControlName="password" [(ngModel)]="password">
+                      <p-password [feedback]="false" formControlName="password" [(ngModel)]="password"
+                        [required]="true">
                       </p-password>
                     </div>
-                    <div class="field col-12 sm:col-3">
+                    <div class="field col-12 sm:col-4">
                       <h6>Repite la contraseña </h6>
-                      <p-password [feedback]="false" formControlName="password2" [(ngModel)]="password2">
+                      <p-password [feedback]="false" formControlName="password2" [(ngModel)]="password2"
+                        [required]="true">
                       </p-password>
                     </div>
                   </div>

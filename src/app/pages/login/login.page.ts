@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
           this.showToast('error', 'Error', result['message'])
         } else {
           this.showToast('success', 'Exito', 'Se logeo con exito')
+          this.navCtl.navigateForward('consulta')
         }
       }).catch((err) => {
         this.showToast('error', 'Error', 'Hubo un problema al querer entrar')
@@ -48,5 +49,8 @@ export class LoginPage implements OnInit {
 
   toRegistro() {
     this.navCtl.navigateForward('registro')
+  }
+  toConsulta() {
+    this.navCtl.navigateForward('consulta')
   }
 }
