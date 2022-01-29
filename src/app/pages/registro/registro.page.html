@@ -1,0 +1,58 @@
+<p-toast key="tst"></p-toast>
+
+<ion-content>
+  <div style="height: 100%; display: flex; align-items: stretch; justify-content: center;">
+
+    <ion-card>
+      <form [formGroup]="registro" (ngSubmit)="submitRegistro()" novalidate>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size-md col-sm-12>
+              <ion-row>
+                <ion-col>
+                  <div class="formgrid grid">
+                    <div class="field col-12 sm:col-6">
+                      <label for="firstname">Nombre </label>
+                      <input id="firstname" type="text" formControlName="firstname" pInputText
+                        class="inputfield w-full">
+                    </div>
+                    <div class="field col-12 sm:col-6">
+                      <label for="lastname">Apellido </label>
+                      <input id="lastname" type="text" formControlName="lastname" pInputText class="inputfield w-full">
+                    </div>
+                    <div class="field col-12 sm:col-6">
+                      <h6>Fecha de nacimiento </h6>
+                      <p-calendar dateFormat="mm-dd-yy" (onSelect)="getDate($event)" formControlName="date">
+                      </p-calendar>
+                    </div>
+                    <div class="field col-12 sm:col-12">
+                      <label for="email">Email </label>
+                      <input id="email" type="mail" formControlName="email" pInputText [(ngModel)]="email"
+                        class="inputfield w-full">
+                    </div>
+
+                    <div class="field col-12 sm:col-3">
+                      <h6>Contraseña </h6>
+                      <p-password [feedback]="false" formControlName="password" [(ngModel)]="password">
+                      </p-password>
+                    </div>
+                    <div class="field col-12 sm:col-3">
+                      <h6>Repite la contraseña </h6>
+                      <p-password [feedback]="false" formControlName="password2" [(ngModel)]="password2">
+                      </p-password>
+                    </div>
+                  </div>
+
+                  <ion-button type="sumbit" expand="block" color="primary">Registrar</ion-button>
+
+                </ion-col>
+
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card>
+  </div>
+</ion-content>

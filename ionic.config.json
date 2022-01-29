@@ -1,0 +1,7 @@
+{
+  "name": "geniatTestApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
